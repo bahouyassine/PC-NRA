@@ -22,4 +22,5 @@ class EbayScraper:
         soup = BeautifulSoup(r.text, 'html.parser')
         items = soup.find_all('div', class_='s-item__info clearfix')
         self._add_items_df(items)
+        self.dataFrame = self.dataFrame.iloc[1:] # delete the first raw 
         return items
