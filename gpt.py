@@ -3,7 +3,7 @@ from langchain.llms import OpenAI
 from langchain import PromptTemplate
 from langchain.chains import LLMChain
 from keys import key
-
+#add a keys.py file with a variable key with open ai api key
 os.environ['OPENAI_API_KEY'] = key
 
 class Configuration:
@@ -41,7 +41,3 @@ class SpecExtractor:
         return self.agent.get_spec(title)
 
 
-# Usage:
-extractor = SpecExtractor()
-dict_result = extractor.extract_from_title("PC with Ryzen 5 7600X and RTX 4060Ti. It has 16 GB RAM and a 1TB SSD")
-print(dict_result['CPU_Model'])

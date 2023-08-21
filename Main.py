@@ -1,7 +1,15 @@
-from EbayScraper import EbayScraper
+from gpt import SpecExtractor
+import pandas as pd
 
-scraper = EbayScraper()
-search_term = "Dell Ultrabook E7450 Core "
-num_pages = 5
-items = scraper._get_items(f"{scraper.base_url}?_nkw={search_term.replace(' ', '+')}&_pgn={num_pages}")
-df = scraper.dataFrame
+df_i = pd.read_csv('sample_file.csv')
+
+columns = ['CPU Model', 'GPU Model', 'RAM Capacity', 'Storage Type', 'Storage Capacity','price']
+df = pd.DataFrame(columns=columns)
+
+extractor = SpecExtractor()
+ind = 1
+tmp = df_i['title'][ind]
+dict_result = extractor.extract_from_title(tmp)
+dict_result['price']=df_i['price'][ind]
+
+print(dict_result)
