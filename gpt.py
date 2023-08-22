@@ -13,9 +13,9 @@ class Configuration:
         self.model_name = 'text-davinci-002'
         self.template = """Act as a Computer Hardware Expert,
                             and provide me with the complete specifications
-                            of the PC titled {title} the out put must be a dictionarie having as keys
-                            CPU_Model,GPU_Model,RAM_Capacity,Storage_Type,Storage_Cpacity and their values
-                            from the title
+                            of the PC titled {title} the output is a string containing the value of 
+                            CPU_Model,GPU_Model,RAM_Capacity,Storage_Type,Storage_Cpacity
+                            separated by , and -1 if the value is not existing
                          """
 
 class OpenAIAgent:
@@ -28,16 +28,15 @@ class OpenAIAgent:
             template=config.template,
         )
         self.chain = LLMChain(llm=self.llm, prompt=self.prompt_template)
-
-    def get_spec(self, title):
-        return eval(self.chain.run(title))
-
 class SpecExtractor:
     def __init__(self):
         self.config = Configuration()
         self.agent = OpenAIAgent(self.config)
 
     def extract_from_title(self, title: str):
-        return self.agent.get_spec(title)
+        return self.agent.chain.run(title)
 
 
+# extractor = SpecExtractor()
+# result = extractor.extract_from_title("PC with Ryzen 5 7600X and RTX 4060Ti. It has 16 GB RAM and a 1TB SSD")
+# print(result.split(','))

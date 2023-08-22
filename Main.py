@@ -1,15 +1,12 @@
 from gpt import SpecExtractor
 import pandas as pd
 
-df_i = pd.read_csv('sample_file.csv')
+# Load data from a CSV file into a DataFrame
+df = pd.read_csv('sample_file.csv')
 
-columns = ['CPU Model', 'GPU Model', 'RAM Capacity', 'Storage Type', 'Storage Capacity','price']
-df = pd.DataFrame(columns=columns)
+# Display the first few rows of the DataFrame
+print(df.head())
 
 extractor = SpecExtractor()
-ind = 1
-tmp = df_i['title'][ind]
-dict_result = extractor.extract_from_title(tmp)
-dict_result['price']=df_i['price'][ind]
-
-print(dict_result)
+dict_result = extractor.extract_from_title("PC with Ryzen 5 7600X and RTX 4060Ti. It has 16 GB RAM and a 1TB SSD")
+print(dict_result['CPU_Model'])
